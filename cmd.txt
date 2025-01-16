@@ -1,0 +1,48 @@
+python train_vit.py --gpu 0 --dataset QFSD --test --resume checkpoint/QFSD/visformer-t/pre-train/checkpoint_epoch_300.pth --episodes 600
+
+python train_vit.py --gpu 0 --dataset QFSD --test --episodes 2 --epochs 1
+python visual.py --gpu 0 --dataset QFSD --resume checkpoint/QFSD/visformer-t/pre-train/checkpoint_epoch_300.pth
+
+
+python train_vit_sp.py --gpu 1 --dataset QFSD --exp sp --init checkpoint/QFSD/visformer-t/pre-train/checkpoint_epoch_300.pth --print_step 1 --test_freq 20
+
+
+
+1-shot: python train_vit_sp.py --gpu 0 --dataset QFSD --exp test --test --episodes 2000 --resume checkpoint/QFSD/visformer-t/sp/checkpoint_epoch_best.pth
+5-shot: python train_vit_sp.py --gpu 0 --dataset QFSD --exp test --shot 5 --test_classifier fc --aug_support 10 --test --episodes 2000 --resume checkpoint/QFSD/visformer-t/sp/checkpoint_epoch_best.pth
+
+
+
+python train_vit_sp.py --gpu 0 --dataset QFSD --exp test --shot 5 --test_classifier fc --test --episodes 20 --resume checkpoint/QFSD/visformer-t/sp/checkpoint_epoch_best.pth
+python train_vit_sp.py --gpu 0 --dataset QFSD --exp test --shot 5 --test_classifier fc --aug_support 10 --test --episodes 20 --resume checkpoint/QFSD/visformer-t/sp/checkpoint_epoch_best.pth
+
+
+python train_vit_sp.py --gpu 1 --dataset QFSD --exp sp --shot 5 --way 5 --init checkpoint/QFSD/visformer-t/pre-train/checkpoint_epoch_300.pth --print_step 10 --test_freq 20
+
+
+python train_vit_sp.py --gpu 0 --dataset QFSD --exp sp --shot 5 --way 10 --init checkpoint/QFSD/visformer-t/pre-train/checkpoint_epoch_300.pth --print_step 10 --test_freq 20
+
+
+python train_vit_sp.py --gpu 1 --dataset QFSD --exp sp --shot 1 --way 10 --init checkpoint/QFSD/visformer-t/pre-train/checkpoint_epoch_300.pth --print_step 10 --test_freq 20 --episodes 2 --epochs 1
+
+
+QFSD	5-way1-shot	基类训练300轮，微调100轮  测试episodes 2000 	精度81.40+-0.75 rint_step 1 --test_freq 20 --shot 5
+
+
+
+https://github.com/WentaoChen0813/SemanticPrompt
+
+
+
+
+1-shot: python train_vit_sp.py --gpu 0 --dataset CIFAR-FS --exp test --test --episodes 2000 --resume checkpoint/CIFAR-FS/visformer-t/sp/checkpoint_epoch_best.pth
+5-shot: python train_vit_sp.py --gpu 0 --dataset CIFAR-FS --exp test --shot 5 --test_classifier fc --aug_support 10 --test --episodes 2000 --resume checkpoint/CIFAR-FS/visformer-t/sp_5shot/checkpoint_epoch_best.pth
+
+
+
+
+
+python train_vit.py --gpu 1 --dataset CIFAR-FS --exp pre-train --rand_aug --repeat_aug --epochs 300 --test_freq 50
+python train_vit_sp.py --gpu 1 --dataset CIFAR-FS --exp sp --shot 5 --init checkpoint/CIFAR-FS/visformer-t/pre-train/checkpoint_epoch_300.pth --print_step 10 --test_freq 20
+python train_vit_sp.py --gpu 1 --dataset CIFAR-FS --exp sp --shot 1 --init checkpoint/CIFAR-FS/visformer-t/pre-train/checkpoint_epoch_300.pth --print_step 10 --test_freq 20
+python train_vit_sp.py --gpu 0 --dataset CIFAR-FS --exp test --shot 5 --test_classifier fc --test --episodes 20 --resume checkpoint/CIFAR-FS/visformer-t/sp/checkpoint_epoch_best.pth
